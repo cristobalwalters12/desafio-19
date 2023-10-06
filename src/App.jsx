@@ -20,8 +20,14 @@ function App() {
     setBusqueda(e.target.value);
   };
 
-  const colaboradoresFiltrados = colaboradores.filter((colaborador) =>
-    colaborador.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  const colaboradoresFiltrados = colaboradores.filter(
+    (colaborador) =>
+      colaborador.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+      colaborador.correo.toLowerCase().includes(busqueda.toLowerCase()) ||
+      colaborador.edad.toLowerCase().includes(busqueda.toLowerCase()) ||
+      colaborador.cargo.toLowerCase().includes(busqueda.toLowerCase()) ||
+      (colaborador.telefono &&
+        colaborador.telefono.toLowerCase().includes(busqueda.toLowerCase()))
   );
 
   return (
