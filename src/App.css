@@ -40,3 +40,11 @@
 .read-the-docs {
   color: #888;
 }
+button {
+  background-color: #6610f2 !important;
+  color: #fff !important;
+}
+button:hover {
+  background-color: #6f42c1 !important;
+  transition: background-color 0.3s;
+}

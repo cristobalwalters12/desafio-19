@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Alert from "./components/Alert";
 import Buscador from "./components/Buscador";
@@ -10,35 +10,32 @@ import { BaseColaboradores } from "./BaseColaboradores";
 function App() {
   const [alert, setAlert] = useState({ message: "", variant: "" });
   const [colaboradores, setColaboradores] = useState(BaseColaboradores);
-  const [busqueda, setBusqueda] = useState("");
+  const [filteredData, setFilteredData] = useState(colaboradores);
+
+  useEffect(() => {
+    setFilteredData(colaboradores);
+  }, [colaboradores]);
 
   const mostrarError = (mensajeError) => {
     setAlert(mensajeError);
   };
 
-  const handleSearch = (e) => {
-    setBusqueda(e.target.value);
-  };
-
-  const colaboradoresFiltrados = colaboradores.filter(
-    (colaborador) =>
-      colaborador.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
-      colaborador.correo.toLowerCase().includes(busqueda.toLowerCase()) ||
-      colaborador.edad.toLowerCase().includes(busqueda.toLowerCase()) ||
-      colaborador.cargo.toLowerCase().includes(busqueda.toLowerCase()) ||
-      (colaborador.telefono &&
-        colaborador.telefono.toLowerCase().includes(busqueda.toLowerCase()))
-  );
-
   return (
     <>
-      <Container fluid>
+      <Container>
         <Row>
+          <h1 className="my-4">
+            <i className="fa-solid fa-user-group"></i> Lista de Colaboradores
+          </h1>
+          <Buscador
+            colaboradores={colaboradores}
+            setFilteredData={setFilteredData}
+          />
           <Col>
-            <Buscador onSearch={handleSearch} />
-            <Listado datos={colaboradoresFiltrados} />
+            <Listado dataFiltrada={filteredData} />
           </Col>
           <Col>
+            <h2 className="text-center">Agregar colaborador</h2>
             <Formulario
               validacion={mostrarError}
               colaboradores={colaboradores}

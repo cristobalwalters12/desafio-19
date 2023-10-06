@@ -1,5 +1,6 @@
 import Table from "react-bootstrap/Table";
-function Listado({ datos }) {
+
+function Listado({ dataFiltrada }) {
   return (
     <>
       <Table striped bordered hover>
@@ -13,13 +14,13 @@ function Listado({ datos }) {
           </tr>
         </thead>
         <tbody>
-          {datos.map((colaborador) => (
-            <tr key={colaborador.id}>
+          {dataFiltrada.map((colaborador) => (
+            <tr key={colaborador.id || colaborador.nombre}>
               <td>{colaborador.nombre}</td>
               <td>{colaborador.correo}</td>
               <td>{colaborador.edad}</td>
               <td>{colaborador.cargo}</td>
-              <td>{colaborador.telefono}</td>
+              <td>{colaborador.telefono || "N/A"}</td>
             </tr>
           ))}
         </tbody>
@@ -27,4 +28,5 @@ function Listado({ datos }) {
     </>
   );
 }
+
 export default Listado;
